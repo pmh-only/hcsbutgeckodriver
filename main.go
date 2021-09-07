@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"time"
 	"log"
 	"os"
+	"time"
 
 	"github.com/tebeka/selenium"
 )
@@ -13,7 +13,7 @@ func main() {
 	const (
 		// These paths will be different on your system.
 		seleniumPath    = "bin/selenium-server.jar"
-		geckoDriverPath = "bin/geckodriver.exe"
+		geckoDriverPath = "bin/geckodriver"
 		port            = 8080
 	)
 
@@ -56,43 +56,60 @@ func main() {
 	typo(wd, "#user_name_input", name)
 	typo(wd, "#birthday_input", birth)
 
-	time.Sleep(1 * time.Second)
+	time.Sleep(3 * time.Second)
 
 	click(wd, "#btnConfirm")
 	click(wd, "#btnConfirm")
+	click(wd, "#btnConfirm")
+	click(wd, "#btnConfirm")
+	click(wd, "#btnConfirm")
 
-	time.Sleep(1 * time.Second)
+	time.Sleep(3 * time.Second)
 
 	click(wd, "#password")
+	click(wd, "#password")
+	click(wd, "#password")
 
-	time.Sleep(1 * time.Second)
+	time.Sleep(3 * time.Second)
 
 	for _, c := range passwd {
 		click(wd, fmt.Sprintf("a[aria-label=\"%c\"]", c))
 	}
 
-	time.Sleep(1 * time.Second)
+	time.Sleep(3 * time.Second)
 
 	click(wd, "#btnConfirm")
 	click(wd, "#btnConfirm")
+	click(wd, "#btnConfirm")
+	click(wd, "#btnConfirm")
+	click(wd, "#btnConfirm")
 
-	time.Sleep(1 * time.Second)
+	time.Sleep(3 * time.Second)
 
 	click(wd, ".name")
 
-	time.Sleep(1 * time.Second)
+	time.Sleep(3 * time.Second)
 
 	click(wd, "#survey_q1a1")
 	click(wd, "#survey_q2a1")
 	click(wd, "#survey_q3a1")
+	click(wd, "#survey_q1a1")
+	click(wd, "#survey_q2a1")
+	click(wd, "#survey_q3a1")
+	click(wd, "#survey_q1a1")
+	click(wd, "#survey_q2a1")
+	click(wd, "#survey_q3a1")
 
-	time.Sleep(1 * time.Second)
+	time.Sleep(3 * time.Second)
 
+	click(wd, "#btnConfirm")
+	click(wd, "#btnConfirm")
+	click(wd, "#btnConfirm")
 	click(wd, "#btnConfirm")
 	click(wd, "#btnConfirm")
 }
 
-func click (wd selenium.WebDriver, selector string) {
+func click(wd selenium.WebDriver, selector string) {
 	elem, err := wd.FindElement(selenium.ByCSSSelector, selector)
 	if err != nil {
 		log.Println(err)
@@ -102,7 +119,7 @@ func click (wd selenium.WebDriver, selector string) {
 	elem.Click()
 }
 
-func typo (wd selenium.WebDriver, selector, text string) {
+func typo(wd selenium.WebDriver, selector, text string) {
 	elem, err := wd.FindElement(selenium.ByCSSSelector, selector)
 	if err != nil {
 		log.Println(err)
