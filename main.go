@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"time"
 
 	"github.com/tebeka/selenium"
+	"github.com/tebeka/selenium/firefox"
 )
 
 func main() {
@@ -14,12 +16,12 @@ func main() {
 		// These paths will be different on your system.
 		seleniumPath    = "bin/selenium-server.jar"
 		geckoDriverPath = "bin/geckodriver"
-		port            = 8080
 	)
 
 	name := os.Args[1]
 	birth := os.Args[2]
 	passwd := os.Args[3]
+	port := rand.Intn(1024) + 8080
 
 	opts := []selenium.ServiceOption{
 		selenium.GeckoDriver(geckoDriverPath), // Specify the path to GeckoDriver in order to use Firefox
@@ -33,6 +35,7 @@ func main() {
 
 	// Connect to the WebDriver instance running locally.
 	caps := selenium.Capabilities{"browserName": "firefox"}
+	caps.AddFirefox(firefox.Capabilities{Args: []string{"-headless"}})
 	wd, err := selenium.NewRemote(caps, fmt.Sprintf("http://localhost:%d/wd/hub", port))
 	if err != nil {
 		panic(err)
